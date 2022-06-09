@@ -7,6 +7,7 @@ import 'package:login_bloc/screens/dashboard/dashboard.dart';
 import 'package:login_bloc/screens/splash/splash.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:login_bloc/login/view/login.dart';
+import 'todos_list/theme/theme.dart';
 
 class App extends StatelessWidget {
   final AuthenticationRepository authenticationRepository;
@@ -52,9 +53,7 @@ class _AppViewState extends State<AppView> {
     return MaterialApp(
       navigatorKey: _navigatorKey,
       title: 'Login Bloc',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: BlocLoginWithTodoTheme.light,
       builder: (context, child) {
         return BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {

@@ -1,0 +1,15 @@
+name: todos_repository
+description: Repositório da TODOs List.
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  todos_api:
+    path: ../todos_api
+
+dev_dependencies:
+  mocktail: ^0.2.0
+  test: ^1.17.0
+  very_good_analysis: ^2.4.0

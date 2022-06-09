@@ -12,14 +12,22 @@ dependencies:
     sdk: flutter
   cupertino_icons: 
   flutter_bloc: 
+  bloc:
   formz: 
   equatable: 
-  bloc:
   meta:
+  intl:
+  shared_preferences:
   authentication_repository:
     path: lib/packages/authentication_repository/
   user_repository:
-    path: lib/packages/user_repository
+    path: lib/packages/user_repository/
+  local_storage_todos_api:
+    path: lib/packages/local_storage_todos_api/
+  todos_api:
+    path: lib/packages/todos_api/
+  todos_repository:
+    path: lib/packages/todos_repository/
 
 dev_dependencies:
   flutter_test:
