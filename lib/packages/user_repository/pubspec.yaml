@@ -1,0 +1,10 @@
+name: user_repository
+description: Pacote Dart que gerenciará o dominío de usuário.
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.0
+  uuid: ^3.0.0
