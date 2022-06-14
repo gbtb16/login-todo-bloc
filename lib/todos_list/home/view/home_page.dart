@@ -1,9 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:login_bloc/todo/home/cubit/home_cubit.dart';
+import 'package:flutter/material.dart';
+
+import 'package:login_bloc/todos_list/todos_overview/view/todos_overview_page.dart';
+import '../../../packages/todos_repository/todos_repository.dart';
+import 'package:login_bloc/todos_list/edit_todo/view/edit_todo_page.dart';
+import 'package:login_bloc/todos_list/home/cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  static Route route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => const HomePage(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +35,7 @@ class HomeView extends StatelessWidget {
       body: IndexedStack(
         index: selectedTab.index,
         children: [
-          TodosOverviewPage(),
-          StatsPage(),
+          TodosOverviewPage(todosRepository: context.read<TodosRepository>()),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

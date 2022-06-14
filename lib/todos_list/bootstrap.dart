@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'package:login_bloc/todos_list/app/app_bloc_observer.dart';
 import '../packages/todos_repository/todos_repository.dart';
-import 'package:login_bloc/todos_list/app/app.dart';
+import 'package:login_bloc/todos_list/app/app_todo.dart';
 import '../packages/todos_api/todos_api.dart';
 
 void bootstrap({required TodosApi todosApi}) {
@@ -19,7 +19,7 @@ void bootstrap({required TodosApi todosApi}) {
     () async {
       await BlocOverrides.runZoned(
         () async => runApp(
-          App(todosRepository: todosRepository),
+          AppTodo(todosRepository: todosRepository),
         ),
         blocObserver: AppBlocObserver(),
       );

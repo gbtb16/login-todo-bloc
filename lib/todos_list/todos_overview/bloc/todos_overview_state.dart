@@ -40,5 +40,3 @@ class TodosOverviewState extends Equatable {
         lastDeletedTodo,
       ];
 }
-
-class TodosOverviewInitial extends TodosOverviewState {}

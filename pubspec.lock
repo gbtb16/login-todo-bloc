@@ -167,6 +167,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -213,7 +218,7 @@ packages:
     source: hosted
     version: "4.0.1"
   intl:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -289,6 +294,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  mockingjay:
+    dependency: "direct dev"
+    description:
+      name: mockingjay
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   mocktail:
     dependency: "direct dev"
     description:
@@ -595,6 +607,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  very_good_analysis:
+    dependency: "direct dev"
+    description:
+      name: very_good_analysis
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   vm_service:
     dependency: transitive
     description:
