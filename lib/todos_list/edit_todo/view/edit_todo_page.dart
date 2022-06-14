@@ -10,6 +10,7 @@ class EditTodoPage extends StatelessWidget {
 
   static Route route({Todo? initialTodo}) {
     return MaterialPageRoute(
+      fullscreenDialog: true,
       builder: (context) => BlocProvider(
         create: (context) => EditTodoBloc(
           todosRepository: context.read<TodosRepository>(),
@@ -23,7 +24,9 @@ class EditTodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<EditTodoBloc, EditTodoState>(
-      listenWhen: (previous, current) => previous.status != current.status,
+      listenWhen: (previous, current) =>
+          previous.status != current.status &&
+          current.status == EditTodoStatus.success,
       listener: (context, state) => Navigator.of(context).pop(),
       child: const EditTodoView(),
     );
@@ -52,15 +55,17 @@ class EditTodoView extends StatelessWidget {
         shape: const ContinuousRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(32)),
         ),
-        backgroundColor: status.isLoadingOrSucess
+        backgroundColor: status.isLoadingOrSuccess
             ? theme.colorScheme.secondary
             : theme.colorScheme.primary,
-        onPressed: status.isLoadingOrSucess
+        onPressed: status.isLoadingOrSuccess
             ? null
-            : () => context.read<EditTodoBloc>().add(
-                  const EditTodoSubmitted(),
-                ),
-        child: status.isLoadingOrSucess
+            : () {
+                context.read<EditTodoBloc>().add(
+                      const EditTodoSubmitted(),
+                    );
+              },
+        child: status.isLoadingOrSuccess
             ? const RefreshProgressIndicator()
             : const Icon(Icons.check_rounded),
       ),
@@ -93,7 +98,7 @@ class _TitleField extends StatelessWidget {
       key: const Key('editTodoView_title_textFormField'),
       initialValue: state.title,
       decoration: InputDecoration(
-        enabled: !state.status.isLoadingOrSucess,
+        enabled: !state.status.isLoadingOrSuccess,
         labelText: 'Título',
         hintText: hintText,
       ),
@@ -120,7 +125,7 @@ class _DescriptionField extends StatelessWidget {
       key: const Key('editTodoView_description_textFormField'),
       initialValue: state.title,
       decoration: InputDecoration(
-        enabled: !state.status.isLoadingOrSucess,
+        enabled: !state.status.isLoadingOrSuccess,
         labelText: 'Descrição',
         hintText: hintText,
       ),

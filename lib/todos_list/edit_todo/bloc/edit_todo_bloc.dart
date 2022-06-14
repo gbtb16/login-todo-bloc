@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 
 import '../../../packages/todos_repository/todos_repository.dart';
@@ -13,7 +14,13 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
     required TodosRepository todosRepository,
     required Todo? initialTodo,
   })  : _todosRepository = todosRepository,
-        super(const EditTodoState()) {
+        super(
+          EditTodoState(
+            initialTodo: initialTodo,
+            title: initialTodo?.title ?? '',
+            description: initialTodo?.description ?? '',
+          ),
+        ) {
     on<EditTodoTitleChanged>(_onTitleChanged);
     on<EditTodoDescriptionChanged>(_onDescriptionChanged);
     on<EditTodoSubmitted>(_onSubmitted);
@@ -46,9 +53,11 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
 
     try {
       await _todosRepository.saveTodo(todo);
+
       emit(state.copyWith(status: EditTodoStatus.success));
     } catch (e) {
       emit(state.copyWith(status: EditTodoStatus.failure));
+      debugPrint(e.toString());
     }
   }
 }

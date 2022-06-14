@@ -9,17 +9,15 @@ import 'package:login_bloc/todos_list/edit_todo/view/edit_todo_page.dart';
 import '../../../packages/todos_repository/todos_repository.dart';
 
 class TodosOverviewPage extends StatelessWidget {
-  final TodosRepository _todosRepository;
-
-  const TodosOverviewPage({Key? key, required TodosRepository todosRepository})
-      : _todosRepository = todosRepository,
-        super(key: key);
+  const TodosOverviewPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TodosOverviewBloc(
-        todosRepository: _todosRepository,
+        todosRepository: context.read<TodosRepository>(),
       )..add(const TodosOverviewSubscrtionRequested()),
       child: const TodosOverviewView(),
     );
@@ -59,7 +57,8 @@ class TodosOverviewView extends StatelessWidget {
           ),
           BlocListener<TodosOverviewBloc, TodosOverviewState>(
             listenWhen: (previous, current) =>
-                previous.lastDeletedTodo != current.lastDeletedTodo,
+                previous.lastDeletedTodo != current.lastDeletedTodo &&
+                current.lastDeletedTodo != null,
             listener: (context, state) {
               final deletedTodo = state.lastDeletedTodo!;
               final messenger = ScaffoldMessenger.of(context);
@@ -99,33 +98,32 @@ class TodosOverviewView extends StatelessWidget {
             }
 
             return Scrollbar(
-              child: SingleChildScrollView(
-                child: ListView(
-                  children: [
-                    for (final todo in state.filteredTodos)
-                      TodoListTile(
-                        todo: todo,
-                        onToggledCompleted: (isCompleted) {
-                          context.read<TodosOverviewBloc>().add(
-                                TodosOverviewTodoCompletionToggled(
-                                  todo: todo,
-                                  isCompleted: isCompleted,
-                                ),
-                              );
-                        },
-                        onDismissed: (_) {
-                          context.read<TodosOverviewBloc>().add(
-                                TodosOverviewTodoDeleted(todo: todo),
-                              );
-                        },
-                        onTap: () {
-                          Navigator.of(context).push(
-                            EditTodoPage.route(initialTodo: todo),
-                          );
-                        },
-                      ),
-                  ],
-                ),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  for (final todo in state.filteredTodos)
+                    TodoListTile(
+                      todo: todo,
+                      onToggledCompleted: (isCompleted) {
+                        context.read<TodosOverviewBloc>().add(
+                              TodosOverviewTodoCompletionToggled(
+                                todo: todo,
+                                isCompleted: isCompleted,
+                              ),
+                            );
+                      },
+                      onDismissed: (_) {
+                        context.read<TodosOverviewBloc>().add(
+                              TodosOverviewTodoDeleted(todo: todo),
+                            );
+                      },
+                      onTap: () {
+                        Navigator.of(context).push(
+                          EditTodoPage.route(initialTodo: todo),
+                        );
+                      },
+                    ),
+                ],
               ),
             );
           },

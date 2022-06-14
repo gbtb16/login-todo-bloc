@@ -3,7 +3,7 @@ part of 'edit_todo_bloc.dart';
 enum EditTodoStatus { initial, loading, success, failure }
 
 extension EditTodoStatusX on EditTodoStatus {
-  bool get isLoadingOrSucess => [
+  bool get isLoadingOrSuccess => [
         EditTodoStatus.loading,
         EditTodoStatus.success,
       ].contains(this);

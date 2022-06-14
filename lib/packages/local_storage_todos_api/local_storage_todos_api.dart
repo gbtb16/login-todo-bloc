@@ -33,6 +33,8 @@ class LocalStorageTodosApi extends TodosApi {
           .toList();
 
       _todoStreamController.add(todos);
+    } else {
+      _todoStreamController.add(const []);
     }
   }
 

@@ -1,8 +1,8 @@
+import 'package:login_bloc/todos_list/stats/view/stats_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:login_bloc/todos_list/todos_overview/view/todos_overview_page.dart';
-import '../../../packages/todos_repository/todos_repository.dart';
 import 'package:login_bloc/todos_list/edit_todo/view/edit_todo_page.dart';
 import 'package:login_bloc/todos_list/home/cubit/home_cubit.dart';
 
@@ -34,8 +34,9 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: [
-          TodosOverviewPage(todosRepository: context.read<TodosRepository>()),
+        children: const [
+          TodosOverviewPage(),
+          StatsPage(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -47,12 +48,13 @@ class HomeView extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _HomeTabButton(
               groupValue: selectedTab,
               value: HomeTab.todos,
-              icon: const Icon(Icons.list_rounded),
+              icon: const Icon(Icons.list),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
@@ -84,6 +86,9 @@ class _HomeTabButton extends StatelessWidget {
       onPressed: () => context.read<HomeCubit>().setTab(value),
       icon: icon,
       iconSize: 32,
+      constraints: const BoxConstraints(
+        minHeight: 32,
+      ),
       color:
           groupValue != value ? null : Theme.of(context).colorScheme.secondary,
     );
